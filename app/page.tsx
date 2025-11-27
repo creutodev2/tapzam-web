@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { 
     ChevronDown, Star, Lock, Info, Download, Share2, Smartphone, Globe, Mail, Flag,
-    ChevronLeft, ChevronRight, X
+    ChevronLeft, ChevronRight, X, BookmarkPlus
 } from 'lucide-react';
 
 // --- Configuration and Mock Data ---
@@ -14,7 +14,7 @@ const TEXT_GREEN = 'text-[#01875f]';
 
 // --- Interfaces ---
 interface ReviewSummary { rating: number; percentage: number; }
-interface UserReview { id: string; userName: string; userImage: string | null; rating: number; date: string; text: string; helpfulCount: number; }
+interface UserReview { id: string; userName: string; userImage: string | null; rating: number; date: string; text: string; helpfulCount: number; color?: string; }
 interface AppInfo {
   iconUrl: string;
   name: string;
@@ -30,7 +30,7 @@ interface AppInfo {
 }
 
 const mockApp: AppInfo = {
-  iconUrl: "https://placehold.co/256x256/4a0e4e/fbbf24?text=►", 
+  iconUrl: "/tapzam/play_store_512.png", 
   name: "WinZO: Play Games & Watch TV", 
   developer: "WinZO Private Limited", 
   rating: 4.4, 
@@ -43,21 +43,23 @@ const mockApp: AppInfo = {
     WinZO is a social gaming platform offering over 100+ engaging games in various formats and languages. It provides a fun and personalized gaming experience where users can compete in challenges and tournaments to win exciting rewards.
   `.trim(),
   screenshots: [
-    "https://placehold.co/300x500/2a0a38/FFFFFF?text=INDIA'S+LARGEST",
-    "https://placehold.co/300x500/1E88E5/FFFFFF?text=NON-STOP+ENTERTAINMENT", 
-    "https://placehold.co/300x500/FF5252/FFFFFF?text=ENDLESS+STORIES",
-    "https://placehold.co/300x500/FFB300/333333?text=NEW+DRAMAS",
-    "https://placehold.co/300x500/673AB7/FFFFFF?text=EXCLUSIVE+SHOWS", 
-    "https://placehold.co/300x500/4CAF50/FFFFFF?text=WIN+REWARDS", 
-    "https://placehold.co/300x500/9C27B0/FFFFFF?text=PLAY+WITH+FRIENDS", 
+    "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.20.06.jpeg",
+     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.06.jpeg",
+     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.06 (1).jpeg", 
+     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.05 (1).jpeg",
+      "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.05 (2).jpeg",
+    "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.03.jpeg",
+    "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.04 (1).jpeg",
+    "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.04.jpeg",
+    "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.05.jpeg",
   ],
   reviewSummaries: [
     { rating: 5, percentage: 70 }, { rating: 4, percentage: 15 }, { rating: 3, percentage: 8 }, { rating: 2, percentage: 3 }, { rating: 1, percentage: 4 },
   ],
   userReviews: [
-      { id: '1', userName: 'Rahul Sharma', userImage: null, rating: 5, date: 'September 14, 2024', text: 'This is the best gaming app I have ever used! Instant withdrawals and so many games to choose from.', helpfulCount: 124 },
-      { id: '2', userName: 'Priya Patel', userImage: 'https://placehold.co/100x100/orange/white?text=P', rating: 1, date: 'August 20, 2024', text: 'Good app for time pass but sometimes it lags on my older phone.', helpfulCount: 45 },
-      { id: '3', userName: 'Amit Kumar', userImage: null, rating: 5, date: 'October 02, 2024', text: 'Amazing experience. The customer support is very responsive.', helpfulCount: 12 }
+      { id: '1', userName: 'Rahul Sharma', userImage: null, rating: 5, date: 'September 14, 2024', text: 'This is the best gaming app I have ever used! Instant withdrawals and so many games to choose from.', helpfulCount: 124, color: 'bg-blue-500' },
+      { id: '2', userName: 'Priya Patel', userImage: null, rating: 1, date: 'August 20, 2024', text: 'Good app for time pass but sometimes it lags on my older phone.', helpfulCount: 45, color: 'bg-green-500' },
+      { id: '3', userName: 'Amit Kumar', userImage: null, rating: 5, date: 'October 02, 2024', text: 'Amazing experience. The customer support is very responsive.', helpfulCount: 12, color: 'bg-red-500' }
   ]
 };
 
@@ -102,7 +104,7 @@ const ReviewCard: React.FC<{ review: UserReview }> = ({ review }) => {
                     {review.userImage ? (
                         <img src={review.userImage} alt={review.userName} className="w-8 h-8 rounded-full" />
                     ) : (
-                        <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs font-bold">{review.userName.charAt(0)}</div>
+                        <div className={`w-8 h-8 rounded-full ${review.color || 'bg-purple-600'} flex items-center justify-center text-white text-xs font-bold`}>{review.userName.charAt(0)}</div>
                     )}
                     <span className="text-sm text-gray-800 font-medium">{review.userName}</span>
                 </div>
@@ -112,13 +114,13 @@ const ReviewCard: React.FC<{ review: UserReview }> = ({ review }) => {
                 <span className="text-xs text-gray-500">{review.date}</span>
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">{review.text}</p>
-            <div className="flex items-center space-x-6 pt-1">
+            {/* <div className="flex items-center space-x-6 pt-1">
                 <span className="text-xs text-gray-500">Was this review helpful?</span>
                 <div className="flex items-center space-x-4">
                     <button className="text-xs text-gray-600 hover:text-gray-900">Yes</button>
                     <button className="text-xs text-gray-600 hover:text-gray-900">No</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -316,9 +318,7 @@ const App: React.FC = () => {
                           <span className="ml-2 sm:hidden md:inline">Share</span>
                       </button>
                       <button className="p-2 text-gray-600 hover:bg-gray-50 rounded-full flex items-center text-sm font-medium text-[#01875f]">
-                          <div className="border-2 border-[#01875f] rounded-md w-5 h-6 flex items-center justify-center mr-2 relative top-[1px]">
-                              <span className="text-lg leading-none -mt-1">+</span>
-                          </div>
+                          <BookmarkPlus className="w-5 h-5 text-[#01875f] mr-2" />
                           <span className="sm:hidden md:inline">Add to wishlist</span>
                       </button>
                   </div>
@@ -431,9 +431,9 @@ const App: React.FC = () => {
                     <div className="space-y-2 divide-y divide-gray-100">
                         {mockApp.userReviews.map((review) => <ReviewCard key={review.id} review={review} />)}
                     </div>
-                    <div className="mt-6">
+                    {/* <div className="mt-6">
                          <button className={`text-sm ${TEXT_GREEN} font-medium hover:text-[#007000] hover:bg-green-50 px-4 py-2 rounded-md transition-colors`}>See all reviews</button>
-                    </div>
+                    </div> */}
                 </section>
             </main>
 
