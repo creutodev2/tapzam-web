@@ -31,16 +31,52 @@ interface AppInfo {
 
 const mockApp: AppInfo = {
   iconUrl: "/tapzam/play_store_512.png", 
-  name: "WinZO: Play Games & Watch TV", 
-  developer: "WinZO Private Limited", 
-  rating: 4.4, 
-  ratingCount: "131K reviews", 
-  downloads: "50M+", 
-  ageRating: "3+", 
+  name: "Tapzam – Turn Your Photos Into Wins", 
+  developer: "Tapzam Private Limited", 
+  rating: 4.5, 
+  ratingCount: "50K reviews", 
+  downloads: "10M+", 
+  ageRating: "12+", 
   description: `
-    Join over 25 Crore Indians on WinZO - Bharat's #1 destination for nonstop entertainment. It's the only platform where the country can binge short dramas, reels, and mini series while also playing 100+ exciting games - all in one place.
+    Tap Fast. Rank High. Get Rewarded.
+
+    Compete in live photo contests, climb rankings, and win exciting rewards.
     
-    WinZO is a social gaming platform offering over 100+ engaging games in various formats and languages. It provides a fun and personalized gaming experience where users can compete in challenges and tournaments to win exciting rewards.
+    📖 About This App (Main Description)
+    Tapzam is a next-generation photo contest platform where creativity meets competition.
+    Upload your best photos, join live contests, collect likes, and climb the leaderboard in real time.
+    Designed for creators, students, and everyday users, Tapzam offers fast-paced contests, fair rankings, and instant engagement — all in one simple app.
+    Whether you love photography or just enjoy fun competitions, Tapzam gives every photo a chance to shine.
+    
+    🚀 Key Features
+    ✅ Live Photo Contests
+    Join real-time photo competitions with clear rules and transparent rankings.
+    ✅ Tap-to-Like System
+    Support your favorite photos by tapping likes and boosting their rank.
+    ✅ Real-Time Leaderboard
+    See instant updates as rankings change live during contests.
+    ✅ Creator-Friendly Platform
+    Anyone can participate — no followers needed, only creativity.
+    ✅ Quick Rewards & Withdrawals
+    Fast and smooth reward processing for a better user experience.
+    ✅ Secure & Trusted
+    Your data is protected with industry-standard security practices.
+
+    🎯 Why Choose Tapzam?
+    •⁠  ⁠Fair and skill-based photo contests
+    •⁠  ⁠No complex rules
+    •⁠  ⁠Simple UI, smooth performance
+    •⁠  ⁠High engagement, real excitement
+
+    🔒 Data Safety
+    Tapzam values your privacy.
+    We follow strict data protection practices and encrypt user data during transmission. Your information is never shared without consent.
+    
+    🏆 Who Is Tapzam For?
+    📸 Photography lovers
+    🎓 Students & creators
+    🎮 Casual competitive users
+    🌟 Anyone who loves fun challenges
   `.trim(),
   screenshots: [
     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.20.06.jpeg",
@@ -57,8 +93,8 @@ const mockApp: AppInfo = {
     { rating: 5, percentage: 70 }, { rating: 4, percentage: 15 }, { rating: 3, percentage: 8 }, { rating: 2, percentage: 3 }, { rating: 1, percentage: 4 },
   ],
   userReviews: [
-      { id: '1', userName: 'Rahul Sharma', userImage: null, rating: 5, date: 'September 14, 2024', text: 'This is the best gaming app I have ever used! Instant withdrawals and so many games to choose from.', helpfulCount: 124, color: 'bg-blue-500' },
-      { id: '2', userName: 'Priya Patel', userImage: null, rating: 1, date: 'August 20, 2024', text: 'Good app for time pass but sometimes it lags on my older phone.', helpfulCount: 45, color: 'bg-green-500' },
+      { id: '1', userName: 'Rahul Sharma', userImage: null, rating: 5, date: 'September 14, 2024', text: 'This is the best photo contest app I have ever used! Love uploading my photos and winning rewards.', helpfulCount: 124, color: 'bg-blue-500' },
+      { id: '2', userName: 'Priya Patel', userImage: null, rating: 1, date: 'August 20, 2024', text: 'Fun way to compete, but sometimes it lags on my older phone.', helpfulCount: 45, color: 'bg-green-500' },
       { id: '3', userName: 'Amit Kumar', userImage: null, rating: 5, date: 'October 02, 2024', text: 'Amazing experience. The customer support is very responsive.', helpfulCount: 12, color: 'bg-red-500' }
   ]
 };
@@ -386,6 +422,14 @@ const App: React.FC = () => {
                   <div className="text-sm text-gray-600 leading-relaxed space-y-4">
                     {displayedDescription.map((p, i) => <p key={i}>{p}</p>)}
                   </div>
+                  {descriptionParagraphs.length > 2 && (
+                    <button
+                      onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                      className={`text-sm ${TEXT_GREEN} font-medium hover:text-[#007000] hover:bg-green-50 px-4 py-2 rounded-md transition-colors`}
+                    >
+                      {isDescriptionExpanded ? 'Read less' : 'Read more'}
+                    </button>
+                  )}
                 </section>
 
                  <section className="py-6 mt-2">
@@ -393,7 +437,7 @@ const App: React.FC = () => {
                       <h2 className="text-lg sm:text-xl font-medium text-[#202124]">Data safety</h2>
                   </div>
                   <p className="text-sm text-gray-600 mb-4 w-11/12">
-                    Safety starts with understanding how developers collect and share your data. Data privacy and security practices may vary based on your use, region, and age. The developer provided this information and may update it over time.
+                    Tapzam values your privacy. We follow strict data protection practices and encrypt user data during transmission. Your information is never shared without consent.
                   </p>
                   <div className="border border-gray-200 rounded-lg p-4 space-y-3">
                      <div className="flex items-start">
@@ -408,7 +452,6 @@ const App: React.FC = () => {
                          <div className="mt-0.5 mr-3 bg-white border border-gray-300 rounded-full p-0.5"><Lock className="w-3 h-3 text-gray-500" /></div>
                          <div><h4 className="text-sm font-medium text-gray-800">Data is encrypted in transit</h4></div>
                      </div>
-                     <div className="pt-2"><a href="#" className={`text-sm font-medium ${TEXT_GREEN} hover:underline`}>See details</a></div>
                   </div>
                 </section>
 
