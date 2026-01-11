@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from 'react';
-import { 
+import {
     ChevronDown, Star, Lock, Info, Download, Share2, Smartphone, Globe, Mail, Flag,
     ChevronLeft, ChevronRight, X, BookmarkPlus
 } from 'lucide-react';
 
 // --- Configuration and Mock Data ---
 
-const PRIMARY_GREEN = 'bg-[#01875f]'; 
+const PRIMARY_GREEN = 'bg-[#01875f]';
 const HOVER_GREEN = 'hover:bg-[#016e4e]';
-const TEXT_GREEN = 'text-[#01875f]'; 
+const TEXT_GREEN = 'text-[#01875f]';
 
 // --- Interfaces ---
 interface ReviewSummary { rating: number; percentage: number; }
@@ -30,37 +30,27 @@ interface AppInfo {
 }
 
 const mockApp: AppInfo = {
-  iconUrl: "/tapzam/play_store_512.png", 
-  name: "Tapzam – Turn Your Photos Into Wins", 
-  developer: "Tapzam Private Limited", 
-  rating: 4.5, 
-  ratingCount: "50K reviews", 
-  downloads: "10M+", 
-  ageRating: "12+", 
+  iconUrl: "/tapzam/play_store_512.png",
+  name: "Tapzam – Turn Your Photos Into Wins",
+  developer: "Tapzam Private Limited",
+  rating: 4.5,
+  ratingCount: "50K reviews",
+  downloads: "10M+",
+  ageRating: "12+",
   description: `
-    Tap Fast. Rank High. Get Rewarded.
-
+    Tap Fast. Rank High. Get Rewarded. 
     Compete in live photo contests, climb rankings, and win exciting rewards.
     
-    📖 About This App (Main Description)
-    Tapzam is a next-generation photo contest platform where creativity meets competition.
-    Upload your best photos, join live contests, collect likes, and climb the leaderboard in real time.
-    Designed for creators, students, and everyday users, Tapzam offers fast-paced contests, fair rankings, and instant engagement — all in one simple app.
-    Whether you love photography or just enjoy fun competitions, Tapzam gives every photo a chance to shine.
+    About This App
+    Tapzam is a next-generation photo contest platform where creativity meets competition. Upload your best photos, join live contests, collect likes, and climb the leaderboard in real time. Designed for creators, students, and everyday users, Tapzam offers fast-paced contests, fair rankings, and instant engagement — all in one simple app. Whether you love photography or just enjoy fun competitions, Tapzam gives every photo a chance to shine.
     
     🚀 Key Features
-    ✅ Live Photo Contests
-    Join real-time photo competitions with clear rules and transparent rankings.
-    ✅ Tap-to-Like System
-    Support your favorite photos by tapping likes and boosting their rank.
-    ✅ Real-Time Leaderboard
-    See instant updates as rankings change live during contests.
-    ✅ Creator-Friendly Platform
-    Anyone can participate — no followers needed, only creativity.
-    ✅ Quick Rewards & Withdrawals
-    Fast and smooth reward processing for a better user experience.
-    ✅ Secure & Trusted
-    Your data is protected with industry-standard security practices.
+    ✅ Live Photo Contests - Join real-time photo competitions with clear rules and transparent rankings.
+    ✅ Tap-to-Like System - Support your favorite photos by tapping likes and boosting their rank.
+    ✅ Real-Time Leaderboard - See instant updates as rankings change live during contests.
+    ✅ Creator-Friendly Platform - Anyone can participate — no followers needed, only creativity.
+    ✅ Quick Rewards & Withdrawals - Fast and smooth reward processing for a better user experience.
+    ✅ Secure & Trusted - Your data is protected with industry-standard security practices.
 
     🎯 Why Choose Tapzam?
     •⁠  ⁠Fair and skill-based photo contests
@@ -81,7 +71,7 @@ const mockApp: AppInfo = {
   screenshots: [
     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.20.06.jpeg",
      "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.06.jpeg",
-     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.06 (1).jpeg", 
+     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.06 (1).jpeg",
      "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.05 (1).jpeg",
       "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.05 (2).jpeg",
     "/tapzam/carousel/WhatsApp Image 2025-11-27 at 09.18.03.jpeg",
@@ -94,7 +84,7 @@ const mockApp: AppInfo = {
   ],
   userReviews: [
       { id: '1', userName: 'Rahul Sharma', userImage: null, rating: 5, date: 'September 14, 2024', text: 'This is the best photo contest app I have ever used! Love uploading my photos and winning rewards.', helpfulCount: 124, color: 'bg-blue-500' },
-      { id: '2', userName: 'Priya Patel', userImage: null, rating: 1, date: 'August 20, 2024', text: 'Fun way to compete, but sometimes it lags on my older phone.', helpfulCount: 45, color: 'bg-green-500' },
+      { id: '2', userName: 'Priya Patel', userImage: null, rating: 4, date: 'August 20, 2024', text: 'Fun way to compete with group of 4 friends.', helpfulCount: 45, color: 'bg-green-500' },
       { id: '3', userName: 'Amit Kumar', userImage: null, rating: 5, date: 'October 02, 2024', text: 'Amazing experience. The customer support is very responsive.', helpfulCount: 12, color: 'bg-red-500' }
   ]
 };
@@ -106,7 +96,7 @@ const RatingStars: React.FC<{ rating: number; size?: string }> = ({ rating, size
   const hasHalfStar = rating % 1 !== 0;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
   const starClass = `${size} text-[#01875f]`;
-  
+
   return (
     <div className="flex space-x-0.5">
       {[...Array(fullStars)].map((_, i) => <Star key={`full-${i}`} fill="#01875f" strokeWidth={0} className={starClass} />)}
@@ -117,7 +107,7 @@ const RatingStars: React.FC<{ rating: number; size?: string }> = ({ rating, size
                 <Star className={starClass} fill="#01875f" strokeWidth={0} />
             </div>
           </div>
-      )} 
+      )}
        {[...Array(emptyStars)].map((_, i) => <Star key={`empty-${i}`} fill="none" stroke="currentColor" strokeWidth={2} className={starClass} />)}
     </div>
   );
@@ -254,7 +244,7 @@ const App: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const descriptionParagraphs = useMemo(() => mockApp.description.split('\n').filter(p => p.trim()), []);
-  const displayedDescription = useMemo(() => isDescriptionExpanded ? descriptionParagraphs : descriptionParagraphs.slice(0, 2), [isDescriptionExpanded, descriptionParagraphs]);
+  const displayedDescription = useMemo(() => isDescriptionExpanded ? descriptionParagraphs : descriptionParagraphs.slice(0, 4), [isDescriptionExpanded, descriptionParagraphs]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -269,22 +259,22 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans antialiased text-gray-800">
-      
+
       {/* MODAL / LIGHTBOX (Big Screen View) */}
       {selectedScreenshot && (
-        <div 
+        <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.6)] p-4"
             onClick={() => setSelectedScreenshot(null)}
         >
-            {/* <button 
+            {/* <button
                 className="absolute top-4 right-4 text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-opacity-80 transition-all"
                 onClick={() => setSelectedScreenshot(null)}
             >
                 <X size={32} />
             </button> */}
-            <img 
-                src={selectedScreenshot} 
-                alt="Full screen preview" 
+            <img
+                src={selectedScreenshot}
+                alt="Full screen preview"
                 className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl"
                 onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image itself
             />
@@ -292,19 +282,19 @@ const App: React.FC = () => {
       )}
 
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-12 pb-10">
-        
+
         {/* 1. HERO SECTION */}
         <header className="flex flex-col lg:flex-row justify-between items-start lg:space-x-8 pb-8">
-              
+
               {/* Left Content */}
               <div className="flex-1 min-w-0 w-full">
-                
+
                 {/* Title Block */}
                 <div className="flex items-start">
-                    <img 
-                        src={mockApp.iconUrl} 
-                        alt="App Icon Mobile" 
-                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-sm border border-gray-100 object-cover mr-4 lg:hidden flex-shrink-0" 
+                    <img
+                        src={mockApp.iconUrl}
+                        alt="App Icon Mobile"
+                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-sm border border-gray-100 object-cover mr-4 lg:hidden flex-shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                         <h1 className="text-[24px] sm:text-[2.5rem] font-medium text-[#202124] leading-tight tracking-tight mb-0.5 break-words">
@@ -342,7 +332,7 @@ const App: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 {/* Buttons Row */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-6 w-full">
                   <button className={`w-full sm:w-auto px-12 py-2.5 ${PRIMARY_GREEN} ${HOVER_GREEN} text-white font-medium rounded-lg shadow-sm transition duration-200 flex justify-center`}>
@@ -359,7 +349,7 @@ const App: React.FC = () => {
                       </button>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center text-xs sm:text-sm text-gray-600">
                     <Smartphone className="w-4 h-4 mr-3 text-gray-400" />
                     <span>This app is available for your device</span>
@@ -371,12 +361,12 @@ const App: React.FC = () => {
                   <img src={mockApp.iconUrl} alt="App Icon Desktop" className="w-[220px] h-[220px] rounded-[20%] shadow-sm border border-gray-100 object-cover" />
               </div>
         </header>
-            
+
         {/* 2. SCREENSHOTS CAROUSEL - Updated */}
         <section className="pb-8 relative group">
-            
+
             {/* Left Arrow Button */}
-            <button 
+            <button
                 onClick={() => scroll('left')}
                 className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md border border-gray-200 hidden group-hover:flex items-center justify-center hover:bg-gray-50 focus:outline-none -ml-4"
             >
@@ -384,27 +374,27 @@ const App: React.FC = () => {
             </button>
 
             {/* Scrollable Container */}
-            <div 
+            <div
                 ref={scrollContainerRef}
                 className="flex space-x-4 overflow-x-auto scrollbar-hide scroll-smooth px-1 py-2"
             >
               {mockApp.screenshots.map((url, index) => (
-                <div 
-                    key={index} 
+                <div
+                    key={index}
                     className="relative flex-shrink-0 cursor-pointer transition-transform transform hover:scale-[1.02]"
                     onClick={() => setSelectedScreenshot(url)}
                 >
-                    <img 
-                        src={url} 
-                        alt={`Screen ${index}`} 
-                        className="h-[250px] sm:h-[350px] w-auto rounded-xl shadow-sm object-cover border border-gray-100" 
+                    <img
+                        src={url}
+                        alt={`Screen ${index}`}
+                        className="h-[250px] sm:h-[350px] w-auto rounded-xl shadow-sm object-cover border border-gray-100"
                     />
                 </div>
               ))}
             </div>
 
             {/* Right Arrow Button */}
-            <button 
+            <button
                 onClick={() => scroll('right')}
                 className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md border border-gray-200 hidden group-hover:flex items-center justify-center hover:bg-gray-50 focus:outline-none -mr-4"
             >
@@ -486,7 +476,7 @@ const App: React.FC = () => {
             </aside>
         </div>
       </div>
-      
+
       {/* FOOTER */}
       <Footer />
     </div>
