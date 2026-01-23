@@ -335,9 +335,14 @@ const App: React.FC = () => {
 
                 {/* Buttons Row */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-6 w-full">
-                  <button className={`w-full sm:w-auto px-12 py-2.5 ${PRIMARY_GREEN} ${HOVER_GREEN} text-white font-medium rounded-lg shadow-sm transition duration-200 flex justify-center`}>
+                  <a
+                    href="https://tapzam.s3.ap-south-1.amazonaws.com/apk/tapzam.apk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full sm:w-auto px-12 py-2.5 ${PRIMARY_GREEN} ${HOVER_GREEN} text-white font-medium rounded-lg shadow-sm transition duration-200 flex justify-center items-center`}
+                  >
                     Install
-                  </button>
+                  </a>
                   <div className="flex items-center space-x-4 justify-center sm:justify-start w-full sm:w-auto">
                       <button className="p-2 text-gray-600 hover:bg-gray-50 rounded-full flex items-center text-sm font-medium text-[#01875f]">
                           <Share2 className="w-6 h-6 text-[#01875f] mb-0.5" strokeWidth={1.5}/>
